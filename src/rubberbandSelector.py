@@ -3,7 +3,7 @@
 import pygame
 
 class RubberBandSelector(pygame.sprite.Sprite):
-    def __init__(self, color=(255, 255, 255), thickness=1):
+    def __init__(self, color=(255, 255, 255), thickness=2):
         self.color = color
         self.thickness = thickness
         self.anchor = None
@@ -14,6 +14,8 @@ class RubberBandSelector(pygame.sprite.Sprite):
         return self.active
 
     def activate(self):
+        if self.active:
+            return
         pos = pygame.mouse.get_pos()
         self.anchor = pos
         self.selection_rect = pygame.Rect(pos[0], pos[1], 0, 0)
@@ -22,7 +24,7 @@ class RubberBandSelector(pygame.sprite.Sprite):
     def deactivate(self):
         self.active = False
 
-    def update(self, screen):
+    def update(self):
         """Handles mouse events to manage the selection box."""
         pos = pygame.mouse.get_pos()
         if self.active:
@@ -38,13 +40,11 @@ class RubberBandSelector(pygame.sprite.Sprite):
                 self.selection_rect.y = pos[1]
                 self.selection_rect.height = self.anchor[1] - pos[1]
 
-        if self.selection_rect:
-            pygame.draw.rect(screen, self.color, self.selection_rect, self.thickness)
 
-    def draw(self, surface):
+    def draw(self, screen):
         """Draws the selector box if active."""
-        if self.active and self.selection_rect:
-            pygame.draw.rect(surface, self.color, self.selection_rect, self.thickness)
+        if self.active:
+            pygame.draw.rect(screen, self.color, self.selection_rect, self.thickness)
 
     def get_rect_points(self):
         x1 = self.selection_rect.x
