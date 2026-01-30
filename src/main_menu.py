@@ -48,7 +48,7 @@ class MainMenuScene(pygame.sprite.Sprite):
         if not self.running:
             return
         for object in self._updatable:
-            object.update()
+            object.update(dt)
 
     def draw(self, screen):
         if not self.running:

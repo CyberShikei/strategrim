@@ -21,7 +21,7 @@ class UnitStack(pygame.sprite.Sprite):
         self.units = []#pygame.sprite.Group()
         self.spawn()
 
-        self.selected = False
+        self._selected = False
 
     def is_in_area(self, rect_area=(0, 0, 0, 0)):
         for unit in self.units:
@@ -31,11 +31,11 @@ class UnitStack(pygame.sprite.Sprite):
         return False
 
     def select(self):
-        self.selected = True
+        self._selected = True
         self.change_color((0, 255, 0))
 
     def deselect(self):
-        self.selected = False
+        self._selected = False
         self.change_color((255, 255, 255))
 
     def spawn(self):
@@ -48,6 +48,8 @@ class UnitStack(pygame.sprite.Sprite):
             self.units.append(Unit(self.x + (i*self.spacing) + (square - extra)*self.spacing//2, self.y + square*self.spacing, radius=self.unit_radius))
 
     def draw(self, screen):
+        if self._selected and self._is_right_click():
+            self.move_towards(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
         for unit in self.units:
             unit.draw(screen)
 
@@ -60,7 +62,7 @@ class UnitStack(pygame.sprite.Sprite):
             unit.set_color(color)
 
     def move_towards(self, x, y):
-        if not self.selected:
+        if not self._selected:
             return
         random.shuffle(self.units)
         square, extra = calcSquare(self.unit_count)
@@ -88,6 +90,12 @@ class UnitStack(pygame.sprite.Sprite):
 
         #for i in range(extra):
         #    self.units[i][0].move_towards(x + (i*self.spacing) + (square - extra)*self.spacing//2, y - self.spacing)
+    
+    def _is_right_click(self):
+        if pygame.mouse.get_pressed()[2]:
+            return True
+        else:
+            return False
 
 def calcSquare(i):
     int_sqrt = math.isqrt(i)

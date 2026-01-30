@@ -24,7 +24,7 @@ class RubberBandSelector(pygame.sprite.Sprite):
     def deactivate(self):
         self.active = False
 
-    def update(self):
+    def update(self, dt):
         """Handles mouse events to manage the selection box."""
         pos = pygame.mouse.get_pos()
         if self.active:
