@@ -1,3 +1,5 @@
+#!./.venv/bin/python
+
 import pygame
 
 class RubberBandSelector(pygame.sprite.Sprite):
