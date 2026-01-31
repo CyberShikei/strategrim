@@ -1,7 +1,35 @@
-2026-01-31 19:05:29 - src.main_menu - INFO - Initializing Main Menu Scene
-2026-01-31 19:05:29 - src.main_menu - INFO - Creating Main Menu Scene Objects
-2026-01-31 19:05:29 - __main__ - INFO - Starting game loop
+2026-02-01 00:39:21 - src.main_menu - INFO - Initializing Main Menu Scene
+2026-02-01 00:39:21 - src.main_menu - INFO - Creating Main Menu Scene Objects
+2026-02-01 00:39:21 - src.main_menu - DEBUG - Attempting to create Title Banner: (1024, 0)
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Creating Banner: banTitle
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Creating Banner: bStartGame
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Creating Button: bStartGame
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Loading Image: resources/images/start.bmp
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Image loaded: resources/images/start.bmp
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Creating Banner: bQuitGame
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Creating Button: bQuitGame
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Loading Image: resources/images/quit.bmp
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Image loaded: resources/images/quit.bmp
+2026-02-01 00:39:21 - __main__ - INFO - Starting game loop
 Active scene: <MainMenuScene Sprite(in 2 groups)>
-2026-01-31 19:05:30 - __main__ - INFO - Starting game
-2026-01-31 19:05:30 - src.battle_scene - INFO - Initializing Battle Scene
-2026-01-31 19:06:14 - __main__ - INFO - Quitting game
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Loading Image: resources/images/title.bmp
+2026-02-01 00:39:21 - src.utils.user_interface - DEBUG - Image loaded: resources/images/title.bmp
+2026-02-01 00:39:27 - __main__ - INFO - Starting game
+2026-02-01 00:39:27 - src.battle_scene - INFO - Initializing Battle Scene
+2026-02-01 00:39:27 - src.battle_scene - INFO - Creating Battle Scene UI
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Banner: bMenu
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Button: bMenu
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Loading Image: resources/images/menu.bmp
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Image loaded: resources/images/menu.bmp
+2026-02-01 00:39:27 - src.battle_scene - INFO - Creating Unit Action Bar
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Banner: 72
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Banner: stack_formation0
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Button: stack_formation0
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Loading Image: resources/images/stack_formation1.bmp
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Image loaded: resources/images/stack_formation1.bmp
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Banner: fire_at_will0
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Creating Button: fire_at_will0
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Loading Image: resources/images/fire_at_will0.bmp
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Image loaded: resources/images/fire_at_will0.bmp
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Loading Image: resources/images/blank_button.bmp
+2026-02-01 00:39:27 - src.utils.user_interface - DEBUG - Image loaded: resources/images/blank_button.bmp

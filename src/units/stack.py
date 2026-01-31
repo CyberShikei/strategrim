@@ -3,6 +3,10 @@ import math, random
 
 from .unit import Unit
 
+from src.utils import logging_tool
+
+logger = logging_tool.get_logger(__name__)
+
 class UnitStack(pygame.sprite.Sprite):
     def __init__(self,
                  x: int = 0, y: int = 0,
@@ -28,7 +32,7 @@ class UnitStack(pygame.sprite.Sprite):
         
         self._fire_at_will = False
 
-        self.units = []#pygame.sprite.Group()
+        self.units = pygame.sprite.Group()
         self.spawn()
 
         self._selected = False
@@ -41,7 +45,7 @@ class UnitStack(pygame.sprite.Sprite):
 
     def set_stack_unit_density(self, state=False):
         if not (self._density == state):
-
+            
             self._density = state
             self._determine_spacing()
             self.move_towards(self.x, self.y)
@@ -65,10 +69,24 @@ class UnitStack(pygame.sprite.Sprite):
         square, extra = calcSquare(self.unit_count)
         for i in range(square):
             for j in range(square):
-                self.units.append(Unit(self.x + i*self.spacing, self.y + j*self.spacing, radius=self.unit_radius, color=self.color))
+                self.units.add(Unit(
+                    self.x + i*self.spacing,
+                    self.y + j*self.spacing,
+                    radius=self.unit_radius,
+                    color=self.color,
+                    belonging=self._belonging
+                    ),)
 
         for i in range(extra):
-            self.units.append(Unit(self.x + (i*self.spacing) + (square - extra)*self.spacing//2, self.y + square*self.spacing, radius=self.unit_radius, color=self.color))
+            self.units.add(Unit(self.x + (i*self.spacing) + (square - extra)*self.spacing//2, self.y + square*self.spacing, radius=self.unit_radius, color=self.color))
+    
+    def check_enemy_units_in_range(self, unit_stack: UnitStack):
+        #if self._fire_at_will:
+        logger.info(f"Unit {self._belonging} fire_at_will is {self._fire_at_will}")
+        for u in self.units:
+            for unit in unit_stack.units:
+                if u.is_enemy_unit_in_range(unit):
+                    logger.info(f"Unit {u._belonging} is in range of {unit._belonging}")
 
     def draw(self, screen):
         for unit in self.units:
@@ -80,20 +98,28 @@ class UnitStack(pygame.sprite.Sprite):
             self.move_towards(pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1])
         self._update_xy()
         for unit in self.units:
+            #unit.set_fire_at_will(self._fire_at_will)
             unit.update(dt)
 
     def _update_xy(self):
-       self.x = self.units[0].get_position()[0]
-       self.y = self.units[0].get_position()[1]
+       self.x = self.units.sprites()[0].get_position()[0]
+       self.y = self.units.sprites()[0].get_position()[1]
     
     def change_color(self, color):
         for unit in self.units:
             unit.set_color(color)
+    
+    def _shuffle_units(self):
+        temp_units = self.units.sprites()
+        random.shuffle(temp_units)
+        self.units.empty()
+        for unit in temp_units:
+            self.units.add(unit)
 
     def move_towards(self, x, y):
         if not self._selected:
             return
-        random.shuffle(self.units)
+        self._shuffle_units()
         square, extra = calcSquare(self.unit_count)
 
         i, j, count = 0, 0, 0
@@ -127,9 +153,11 @@ class UnitStack(pygame.sprite.Sprite):
             return False
     
     def set_fire_at_will(self, value):
+        logger.info(f"Setting fire at will to {value}")
         self._fire_at_will = value
         for unit in self.units:
             unit.set_fire_at_will(value)
+        logger.info(f"Fire for units {self.units.sprites()[0]._fire_at_will}")
 
     def is_fire_at_will(self):
         return self._fire_at_will

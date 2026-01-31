@@ -34,13 +34,42 @@ class MainMenuScene(pygame.sprite.Sprite):
 
         # Title
         banner_size = int(80/100*SCREEN_WIDTH), 0#int(20/100*SCREEN_HEIGHT)
-        banner = Banner("ban_title", "title", SCREEN_WIDTH//2-banner_size[0]//2, int(0/100*SCREEN_HEIGHT), *banner_size)
-        
+        logger.debug(f"Attempting to create Title Banner: {banner_size}")
+        banner = Banner(#"ban_title", "title", SCREEN_WIDTH//2-banner_size[0]//2, int(0/100*SCREEN_HEIGHT), *banner_size)
+                x=SCREEN_WIDTH//2-banner_size[0]//2,
+                y=int(0/100*SCREEN_HEIGHT),
+                width=banner_size[0],
+                height=banner_size[1],
+                banner_id="banTitle",
+                image_path="title")
+
         button_size = int(20/100*SCREEN_WIDTH), int(10/100*SCREEN_HEIGHT)
         # Start Game Button
-        start_button = Button("bStartGame", "start", SCREEN_WIDTH//2-button_size[0]//2, int(40/100*SCREEN_HEIGHT), START_GAME, *button_size, (175, 125, 0))
+        #start_button = Button("bStartGame", "start", SCREEN_WIDTH//2-button_size[0]//2, int(40/100*SCREEN_HEIGHT), START_GAME, *button_size, (175, 125, 0))
+        start_button = Button(
+                active=True,
+                toggle=False,
+                py_event=True,
+                x=SCREEN_WIDTH//2-button_size[0]//2,
+                y=int(40/100*SCREEN_HEIGHT),
+                width=button_size[0],
+                height=button_size[1],
+                button_id="bStartGame",
+                image_path="start",
+                trigger_event=START_GAME)
         # Quit Game Button
-        quit_button = Button("bQuitGame","quit", SCREEN_WIDTH//2-button_size[0]//2, int(60/100*SCREEN_HEIGHT), pygame.QUIT, *button_size, (175, 125, 0))
+        #quit_button = Button("bQuitGame","quit", SCREEN_WIDTH//2-button_size[0]//2, int(60/100*SCREEN_HEIGHT), pygame.QUIT, *button_size, (175, 125, 0))
+        quit_button = Button(
+                active=True,
+                toggle=False,
+                py_event=True,
+                x=SCREEN_WIDTH//2-button_size[0]//2,
+                y=int(60/100*SCREEN_HEIGHT),
+                width=button_size[0],
+                height=button_size[1],
+                button_id="bQuitGame",
+                image_path="quit",
+                trigger_event=pygame.QUIT)
 
         #self.objects.add(banner)
         #self.objects.add(start_button)

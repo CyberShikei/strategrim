@@ -29,7 +29,7 @@ class BattleScene(pygame.sprite.Sprite):
                 self._player_name,
                 5,
                 (175, 0, 175),
-                spawn_point=(0, int(20/100*SCREEN_HEIGHT))
+                spawn_point=(0, SCREEN_HEIGHT - int(40/100*SCREEN_HEIGHT))
                 )
         self._players = pygame.sprite.Group()
 
@@ -43,12 +43,23 @@ class BattleScene(pygame.sprite.Sprite):
         self._drawable.add(self._players)
     
     def _create_ui(self):
+        logger.info("Creating Battle Scene UI")
         # Menu Buttoni
         spacing = _button_padding
         button_size = int((3*spacing)/100*SCREEN_WIDTH), int((3*spacing)/100*SCREEN_WIDTH)
         b_menu_pos = int(SCREEN_WIDTH - (button_size[0] + (1*spacing)/100*SCREEN_WIDTH)), int((1*spacing)/100*SCREEN_WIDTH)
-        b_menu = Button("bMenu", "menu", *b_menu_pos, MAIN_MENU, *button_size, (175, 125, 0))
-        
+        b_menu = Button(#"bMenu", "menu", *b_menu_pos, MAIN_MENU, *button_size, (175, 125, 0))
+                active=True,
+                py_event=True,
+                x=b_menu_pos[0],
+                y=b_menu_pos[1],
+                width=button_size[0],
+                height=button_size[1],
+                button_id="bMenu",
+                image_path="menu",
+                trigger_event=MAIN_MENU)
+                
+
         # Spawn Unit Button
         #b_spawn_unit_pos = int(SCREEN_WIDTH - (button_size[0] + (1*spacing)/100*SCREEN_WIDTH)), int((((1*spacing)/100*SCREEN_WIDTH)) + 50)
         #b_spawn_unit = Button("bSpawnUnit", "resources/images/spawn.bmp", *b_spawn_unit_pos, self.spawn_unit, *button_size, (175, 125, 0), py_event=False)
@@ -59,6 +70,7 @@ class BattleScene(pygame.sprite.Sprite):
         self._drawable.add(b_menu)#, b_spawn_unit)
     
     def _create_unit_action_bar(self):
+        logger.info("Creating Unit Action Bar")
         # Unit Action Bar
         
         width_perc, height_perc = 100, 10
@@ -71,18 +83,33 @@ class BattleScene(pygame.sprite.Sprite):
         button_square = int((3*spacing))
         button_size = button_square, button_square
         b_toggle_stack_density = Button(
-                "bToggleStackDensity",
-                "stack_formation0",
-                spacing, ban_bar_pos[1] + (button_size[1]//2),
-                self._set_stack_unit_density,
-                *button_size,
-                (175, 125, 0),
-                py_event=False,
                 active=False,
                 toggle=True,
-                toggle_state=True)
+                toggle_state=True,
+                py_event=False,
+                x=spacing,
+                y=ban_bar_pos[1] + (button_size[1]//2),
+                width=button_size[0],
+                height=button_size[1],
+                background_color=(175, 125, 0),
+                button_id="stack_formation0",
+                image_path="stack_formation0",
+                trigger_event=self._set_stack_unit_density
+                )
         
-        b_toggle_fire_at_will = Button("bToggleFireAtWill", "fire_at_will0", spacing*2 + button_size[0], ban_bar_pos[1] + (button_size[1]//2), self._toggle_fire_at_will, *button_size, (175, 125, 0), py_event=False, active=False, toggle=True)
+        b_toggle_fire_at_will = Button(
+                active=False,
+                toggle=True,
+                py_event=False,
+                x=spacing*2 + button_size[0],
+                y=ban_bar_pos[1] + (button_size[1]//2),
+                width=button_size[0],
+                height=button_size[1],
+                background_color=(175, 125, 0),
+                button_id="fire_at_will0",
+                image_path="fire_at_will0",
+                trigger_event=self._toggle_fire_at_will
+                )
 
         self._unit_action_buttons.add(b_toggle_stack_density, b_toggle_fire_at_will)
 
@@ -122,8 +149,14 @@ class BattleScene(pygame.sprite.Sprite):
         self._client_player.set_stack_unit_density(state)
 
     def _toggle_fire_at_will(self, state=False):
+
         self._client_player.set_fire_at_will(state)
         #self.check_fire_at_will()
+    
+    def unit_combat_check(self):
+        for player in self._players:
+            if player.get_name() != self._client_player.get_name():
+                return player.has_range_on_enemy(self._client_player)
 
     def update(self, dt):
         if not self.running:
@@ -140,6 +173,8 @@ class BattleScene(pygame.sprite.Sprite):
             else:
                 button.deactivate()
         
+        self.unit_combat_check()
+
         #for event in pygame.event.get():
         #    if event.type == UNITS_SELECTED:
         #        self.check_fire_at_will()

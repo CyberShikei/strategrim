@@ -51,12 +51,20 @@ class Admiral(pygame.sprite.Sprite):
             stack_pos = (start_pos[0] + first_stack.get_stack_area()[2]*i + stack_spacing, start_pos[1])
             stack = UnitStack(*stack_pos, unit_dencity, unit_radius, unit_spacing, color=self._unit_color, belonging=self._name)
             self._unit_stacks.add(stack)
+    
+    def has_range_on_enemy(self, admiral: Admiral):
+        for stack in self._unit_stacks:
+            if stack.is_fire_at_will():
+                logger.info(f"Fire at will for units {stack.units.sprites()[0]._fire_at_will}")
+                for enemy_stack in admiral.get_unit_stacks():
+                    if stack.check_enemy_units_in_range(enemy_stack):
+                        return True
 
     def get_name(self):
         return self._name
 
     def get_unit_stacks(self):
-        return self.unit_stacks
+        return self._unit_stacks
     
     def get_selected_units(self):
         return self._selected_units
@@ -64,6 +72,8 @@ class Admiral(pygame.sprite.Sprite):
     def set_fire_at_will(self, state=False):
         for stack in self._selected_units:
             stack.set_fire_at_will(state)
+            if state == False:
+                logger.info(f"Fire at will for units {stack.units.sprites()[0]._fire_at_will}")
     
     def set_stack_unit_density(self, state=False):
         for stack in self._selected_units:
