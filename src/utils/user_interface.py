@@ -1,8 +1,9 @@
 import pygame
 
 class Banner(pygame.sprite.Sprite):
-    def __init__(self, image_path, x, y, width=None, height=None, background=(0, 0, 0)):
+    def __init__(self, banner_name ,image_path, x, y, width=None, height=None, background=(0, 0, 0)):
         super().__init__()
+        self._name = banner_name
         self._image = pygame.image.load(image_path)
         
         if width and height:
@@ -33,10 +34,9 @@ class Banner(pygame.sprite.Sprite):
 
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, button_name, image_path, x, y, trigger_event=None, width=None, height=None, background=(0, 0, 0), py_event=True, cooldown=20):
+    def __init__(self, button_name, image_path, x, y, trigger_event=None, width=None, height=None, background=(0, 0, 0), py_event=True, cooldown=20, active=True):
         super().__init__()
         self._name = button_name
-        print(f"creating button {self._name} at {x}, {y}")
         if not image_path or image_path == "":
             image_path = "resources/images/blank_button.bmp"
         self._image = pygame.image.load(image_path)
@@ -66,12 +66,23 @@ class Button(pygame.sprite.Sprite):
         self._py_event = py_event
         self._cooldown = cooldown
         self._counter_cooldown = cooldown
+
+        self._active = active
+    
+    def activate(self):
+        self._active = True
+
+    def deactivate(self):
+        self._active = False
+
     def update(self, dt):
+        if not self._active:
+            self._background = (50, 50, 50)
+            return
         if self._rect.collidepoint(pygame.mouse.get_pos()):
             self._background = (175, 0, 0)
             if self.is_left_clicked() and self._counter_cooldown <= 0:
                 self._counter_cooldown = 100
-                print(f"Button {self._name} clicked")
                 if self._py_event:
                     pygame.event.post(pygame.event.Event(self._trigger_event))
                 else:

@@ -3,10 +3,12 @@
 import pygame
 #import pygame.freetype
 
-from .utils import Button, Banner
+from .utils import Button, Banner, logging_tool
 
 from config import (GAME_TITLE, SCREEN_HEIGHT,
     SCREEN_WIDTH)
+
+logger = logging_tool.get_logger(__name__)
 
 #pygame.freetype.init()
 #MY_FONT = pygame.freetype.SysFont('Arial', 24)
@@ -18,6 +20,8 @@ class MainMenuScene(pygame.sprite.Sprite):
     _drawable = pygame.sprite.Group()
 
     def __init__(self):
+        logger.info("Initializing Main Menu Scene")
+
         super().__init__()
         self.running = True
         self.objects = pygame.sprite.Group()
@@ -26,9 +30,11 @@ class MainMenuScene(pygame.sprite.Sprite):
         self._create_objects()
 
     def _create_objects(self):
+        logger.info("Creating Main Menu Scene Objects")
+
         # Title
         banner_size = int(80/100*SCREEN_WIDTH), 0#int(20/100*SCREEN_HEIGHT)
-        banner = Banner("resources/images/title.bmp", SCREEN_WIDTH//2-banner_size[0]//2, int(0/100*SCREEN_HEIGHT), *banner_size)
+        banner = Banner("ban_title", "resources/images/title.bmp", SCREEN_WIDTH//2-banner_size[0]//2, int(0/100*SCREEN_HEIGHT), *banner_size)
         
         button_size = int(20/100*SCREEN_WIDTH), int(10/100*SCREEN_HEIGHT)
         # Start Game Button
