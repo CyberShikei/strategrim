@@ -7,14 +7,16 @@ import pygame, math
 
 class Unit(TriangleShape):
     def __init__(self,
-                 x, y,
-                 radius=5
+                 x: int, y: int,
+                 radius: int=5,
+                 color: tuple=(255, 255, 255)
                  ):
         # call the parent class constructor
-        super().__init__(x, y, radius)
+        super().__init__(x, y, radius, color)
         self.moving = False
         self.target = (self.position.x, self.position.y)
         self.speed = 1
+        self._fire_at_will = False
     
     
     def step(self):
@@ -31,8 +33,16 @@ class Unit(TriangleShape):
         if self.moving:
             self.look_at(self.target[0], self.target[1])
             self.step()
-            if self.get_position()[0] <= self.target[0] + self.radius and self.get_position()[0] >= self.target[0] - self.radius and self.get_position()[1] <= self.target[1] + self.radius and self.get_position()[1] >= self.target[1] - self.radius:
+            if self._has_reached_target():#if self.get_position()[0] <= self.target[0] + self.radius and self.get_position()[0] >= self.target[0] - self.radius and self.get_position()[1] <= self.target[1] + self.radius and self.get_position()[1] >= self.target[1] - self.radius:
                 self.moving = False
+    
+    def _has_reached_target(self):
+        x_in_range = self.get_position()[0] >= self.target[0] - self.radius and self.get_position()[0] <= self.target[0] + self.radius
+        y_in_range = self.get_position()[1] >= self.target[1] - self.radius and self.get_position()[1] <= self.target[1] + self.radius
+        if x_in_range and y_in_range:
+            return True
+        else:
+            return False
 
     def move_towards(self, x, y):
         self.moving = True
@@ -48,3 +58,7 @@ class Unit(TriangleShape):
     def set_posistion(self, x, y):
         self.x = x
         self.y = y
+
+
+    def set_fire_at_will(self, value):
+        self._fire_at_will = value

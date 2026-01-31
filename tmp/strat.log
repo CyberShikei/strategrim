@@ -1,17 +1,7 @@
-2026-01-31 10:44:39 - src.main_menu - INFO - Initializing Main Menu Scene
-2026-01-31 10:44:39 - src.main_menu - INFO - Creating Main Menu Scene Objects
-2026-01-31 10:44:39 - __main__ - INFO - Starting game loop
+2026-01-31 19:05:29 - src.main_menu - INFO - Initializing Main Menu Scene
+2026-01-31 19:05:29 - src.main_menu - INFO - Creating Main Menu Scene Objects
+2026-01-31 19:05:29 - __main__ - INFO - Starting game loop
 Active scene: <MainMenuScene Sprite(in 2 groups)>
-2026-01-31 10:44:42 - __main__ - INFO - Starting game
-2026-01-31 10:44:42 - src.battle_scene - INFO - Initializing Battle Scene
-2026-01-31 10:45:54 - __main__ - INFO - Returning to main menu
-2026-01-31 10:45:54 - src.main_menu - INFO - Initializing Main Menu Scene
-2026-01-31 10:45:54 - src.main_menu - INFO - Creating Main Menu Scene Objects
-2026-01-31 10:45:55 - __main__ - INFO - Starting game
-2026-01-31 10:45:55 - src.battle_scene - INFO - Initializing Battle Scene
-2026-01-31 10:46:03 - __main__ - INFO - Returning to main menu
-2026-01-31 10:46:03 - src.main_menu - INFO - Initializing Main Menu Scene
-2026-01-31 10:46:03 - src.main_menu - INFO - Creating Main Menu Scene Objects
-2026-01-31 10:46:04 - __main__ - INFO - Quitting game
-2026-01-31 10:46:04 - __main__ - INFO - Quitting game
-2026-01-31 10:46:04 - __main__ - INFO - Quitting game
+2026-01-31 19:05:30 - __main__ - INFO - Starting game
+2026-01-31 19:05:30 - src.battle_scene - INFO - Initializing Battle Scene
+2026-01-31 19:06:14 - __main__ - INFO - Quitting game

@@ -34,13 +34,13 @@ class MainMenuScene(pygame.sprite.Sprite):
 
         # Title
         banner_size = int(80/100*SCREEN_WIDTH), 0#int(20/100*SCREEN_HEIGHT)
-        banner = Banner("ban_title", "resources/images/title.bmp", SCREEN_WIDTH//2-banner_size[0]//2, int(0/100*SCREEN_HEIGHT), *banner_size)
+        banner = Banner("ban_title", "title", SCREEN_WIDTH//2-banner_size[0]//2, int(0/100*SCREEN_HEIGHT), *banner_size)
         
         button_size = int(20/100*SCREEN_WIDTH), int(10/100*SCREEN_HEIGHT)
         # Start Game Button
-        start_button = Button("bStartGame", "resources/images/start.bmp", SCREEN_WIDTH//2-button_size[0]//2, int(40/100*SCREEN_HEIGHT), START_GAME, *button_size, (175, 125, 0))
+        start_button = Button("bStartGame", "start", SCREEN_WIDTH//2-button_size[0]//2, int(40/100*SCREEN_HEIGHT), START_GAME, *button_size, (175, 125, 0))
         # Quit Game Button
-        quit_button = Button("bQuitGame","resources/images/quit.bmp", SCREEN_WIDTH//2-button_size[0]//2, int(60/100*SCREEN_HEIGHT), pygame.QUIT, *button_size, (175, 125, 0))
+        quit_button = Button("bQuitGame","quit", SCREEN_WIDTH//2-button_size[0]//2, int(60/100*SCREEN_HEIGHT), pygame.QUIT, *button_size, (175, 125, 0))
 
         #self.objects.add(banner)
         #self.objects.add(start_button)

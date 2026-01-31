@@ -1,7 +1,9 @@
 import pygame, math
 
 # Base class for game objects
+from src.utils import logging_tool
 
+logger = logging_tool.get_logger(__name__)
 
 class TriangleShape(pygame.sprite.Sprite):
     def __init__(self, x, y, radius, color=(255, 255, 255)):

@@ -2,3 +2,7 @@ GAME_TITLE = "Strategrim"
 
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
+
+RESOURCES = "resources"
+IMAGES = "images"
+IMAGE_EXTENTION = "bmp"
